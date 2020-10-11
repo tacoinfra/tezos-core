@@ -9,6 +9,31 @@ const TEST_DATA = {
   base58Check: 'jpUz5f99p1R',
 }
 
+test('bytesToDecimal - Large number', () => {
+  // GIVEN bytes representing 2^56, which overflows the javascript runtime.
+  const inputBytes = new Uint8Array(8)
+  inputBytes[0] = 1
+
+  // WHEN it is converted to a decimal
+  const output = CodingUtils.bytesToDecimal(inputBytes)
+
+  // THEN it is the expected output.
+  const expected = 2n ** 56n
+  expect(output).toEqual(expected)
+})
+
+test('bytesToDecimal - Small number', () => {
+  // GIVEN bytes representing a number which will not overflow in the Javascript runtime.
+  const inputBytes = new Uint8Array([1, 2, 3])
+
+  // WHEN it is converted to a decimal
+  const output = CodingUtils.bytesToDecimal(inputBytes)
+
+  // THEN it is the expected output.
+  const expected = BigInt(66051)
+  expect(output).toEqual(expected)
+})
+
 test('base58CheckDecode', () => {
   // GIVEN a base58check string WHEN it is decoded THEN it decodes as expected.
   expect(CodingUtils.base58CheckDecode(TEST_DATA.base58Check)).toEqual(
