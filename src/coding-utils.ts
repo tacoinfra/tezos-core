@@ -12,6 +12,17 @@ const base58Check = require('bs58check')
 /** Common encoding functions. */
 const CodingUtils = {
   /**
+   * Parse the given bytes to an arbitrarily large decimal.
+   *
+   * @param bytes The input bytes to parse.
+   * @returns The input bytes as a decimal.
+   */
+  bytesToDecimal(bytes: Uint8Array): BigInt {
+    const hex = this.bytesToHex(bytes)
+    return BigInt(`0x${hex}`)
+  },
+
+  /**
    * Decode the given base58check input.
    *
    * @param input A base58check encoded string.
