@@ -15,6 +15,7 @@ const prefix = {
   SIGNATURE_SECP256K1: new Uint8Array([13, 115, 101, 19, 63]), // spsig
 
   /** Misc */
+  CHAIN_ID: new Uint8Array([87, 82, 0]), // Net
   SMART_CONTRACT_ADDRESS: new Uint8Array([2, 90, 121]), // KT1
 }
 
